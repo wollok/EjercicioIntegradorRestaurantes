@@ -4,7 +4,7 @@
 
 Los compañeros de una conocida escuela gastronómica van probando diferente platos de comida, de manera gratuita porque los elaboran ellos mismos, pero tienen la costumbre de salir de gira todas las semanas por diferentes casas de comidas de la ciudad. Algunos son denominados deglutidores, por su voracidad frente a la mesa, y los restantes se definen como críticos culinarios, por su estilo más refinado. Los deglutidores no se vuelven críticos, ni viceversa.
 
-![menu](menu.jpg)
+![menu](menu.JPG)
 ### Primera parte
 No cualquiera puede participar de cada una de las giras que hacen estos estudiantes: sólo pueden ir los que se consideran buena onda y tengan dinero suficiente para lo estimado de la gira. Para ello un deglutidor debe haberse comido más de 20 platos o tener vehículo. Los críticos también pueden ser buena onda, pero dependerá de la cantidad de platos probados y las horas que pasa mirando programas de comida (mínimo 10 horas de programa por cada plato comido). 
 
