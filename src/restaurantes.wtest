@@ -22,9 +22,7 @@ describe "Tests de comidas"{
 	var bodegon = new Bodegon([cazuela,ravioli,pasta]) 
 	
 	var giraCara = new Gira(1000)
-	//[rest1],[zeus,hera,artemisa])
 	var giraBarata = new Gira(100)
-	//,[rest1,bod1],[zeus,hera,apollo])
 	
 	fixture{
 		escuela.agregarEstudiante(deglutidorMalaOnda) 
