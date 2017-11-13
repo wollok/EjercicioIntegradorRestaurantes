@@ -1,0 +1,126 @@
+import restaurantes.*
+
+describe "Tests de comidas"{
+	var deglutidorBuenaOnda = new Deglutidor(1500,21,true)
+	var criticoBuenaOnda = new Critico(1500,2,40)
+	var deglutidorMalaOnda = new Deglutidor(2000,21,false)
+	var criticoPocaPlata = new Critico(150,2,20)
+	
+	
+	var chefProfesor = new Chef()
+	var chefFamoso = new Chef()
+	var uruguay = new Lugar(false)
+	
+	var ravioli = new Plato("Ravioli",60)
+	var pasta = new Plato("Pasta",140)
+	var cazuela = new Plato("cazuela",40)
+	var carne = new Plato("Carne",5)
+	var ratatouille = new Plato("Ratatouille", 200)
+	
+	var restComun = new Restaurante([ravioli,pasta,carne],4,chefProfesor)
+	var restEtnico = new RestauranteEtnico([ratatouille],1,chefFamoso,uruguay)
+	var bodegon = new Bodegon([cazuela,ravioli,pasta]) 
+	
+	var giraCara = new Gira(1000)
+	//[rest1],[zeus,hera,artemisa])
+	var giraBarata = new Gira(100)
+	//,[rest1,bod1],[zeus,hera,apollo])
+	
+	fixture{
+		escuela.agregarEstudiante(deglutidorMalaOnda) 
+		escuela.agregarEstudiante(deglutidorBuenaOnda)
+		escuela.agregarEstudiante(criticoBuenaOnda)
+		escuela.agregarEstudiante(criticoPocaPlata)
+		escuela.agregarProfesor(chefProfesor)
+		giraCara.agregarLugar(restEtnico)
+		giraBarata.agregarLugar(restComun)
+		giraBarata.agregarLugar(bodegon)
+			
+	}
+	
+	method sumarGiraCara(){
+		giraCara.sumarA(deglutidorBuenaOnda)
+		giraCara.sumarA(criticoBuenaOnda)
+	}
+	method sumarGiraBarata(){
+		giraBarata.sumarA(deglutidorBuenaOnda)
+		giraBarata.sumarA(criticoPocaPlata)
+	}
+    test "Puedo agregar deglutidor buena onda con plata a la gira cara"{
+    	giraCara.sumarA(deglutidorBuenaOnda)
+    	assert.that(giraCara.personas().contains(deglutidorBuenaOnda))
+    }
+    test "Puedo agregar critico buena onda con plata a la gira cara"{
+    	giraCara.sumarA(criticoBuenaOnda)
+    	assert.that(giraCara.personas().contains(criticoBuenaOnda))
+    }
+     test "No puedo agregar a deglutidor mala onda a la gira cara"{
+    	assert.throwsExceptionLike(noPuedeIrDeGira, { giraCara.sumarA(deglutidorMalaOnda)})
+    }
+    test "Puedo agregar critico poca plata a la gira barata"{
+    	giraBarata.sumarA(criticoPocaPlata)
+    	assert.that(giraBarata.personas().contains(criticoPocaPlata))
+    }
+     test "No puedo agregar critico poca plata a la gira cara"{
+    	assert.throwsExceptionLike(noPuedeIrDeGira, { giraCara.sumarA(criticoPocaPlata)})
+    }
+	test "Restaurante comun vale la pena para la giraBarata"{
+    	self.sumarGiraBarata() 
+		assert.that(restComun.valeLaPena(giraBarata))
+	}
+	test "Bodegon vale la pena para la giraBarata"{
+    	self.sumarGiraBarata() 
+		assert.that(restComun.valeLaPena(bodegon))
+	}
+	test "Restaurante etnico no vale la pena para la giraCara"{
+    	self.sumarGiraCara() 
+		assert.notThat(restEtnico.valeLaPena(giraCara))
+	}
+	
+    test "Gira Cara no vale la pena"{
+    	self.sumarGiraCara() 
+    	assert.notThat(giraCara.valeLaPena())
+    }
+    test "Gira Barata vale la pena"{
+    	self.sumarGiraBarata() 
+    	assert.that(giraBarata.valeLaPena())
+    }
+    test "Critico poca plata gasta 50$ y 100$ en la gira barata y se queda sin plata"{
+    	self.sumarGiraBarata()
+    	giraBarata.realizar()
+    	assert.equals(0, criticoPocaPlata.dinero())
+    }
+	
+    test "Critico poca plata principiante sin giras categoriza sigue principiante"{
+    	criticoPocaPlata.recategorizar()
+    	assert.equals(principiante,criticoPocaPlata.categoria())
+    }
+    test "Critico poca plata principiante hace gira, categoriza y pasa a clasico"{
+    	self.sumarGiraBarata()
+    	giraBarata.realizar()
+    	criticoPocaPlata.recategorizar()
+    	assert.equals(clasico,criticoPocaPlata.categoria())
+    }
+    
+    test "Critico poca plata principiante hace gira, categoriza y aumenta horas"{
+    	self.sumarGiraBarata()
+    	giraBarata.realizar()
+    	criticoPocaPlata.recategorizar()
+    	assert.equals(22,criticoPocaPlata.horasTele())
+    }
+    test "Critico poca plata principiante hace gira, categoriza dos veces, pero queda en clasico por no ser buena onda"{
+    	self.sumarGiraBarata()
+    	giraBarata.realizar()
+    	criticoPocaPlata.recategorizar()
+    	criticoPocaPlata.recategorizar()
+    	assert.equals(clasico,criticoPocaPlata.categoria())
+    }
+    test "Deglutidor buena onda principiante hace gira, categoriza dos veces, y se hace experto"{
+    	self.sumarGiraBarata()
+    	giraBarata.realizar()
+    	deglutidorBuenaOnda.recategorizar()
+    	deglutidorBuenaOnda.recategorizar()
+    	assert.equals(experto,deglutidorBuenaOnda.categoria())
+    }
+
+}
