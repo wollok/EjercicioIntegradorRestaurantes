@@ -1,3 +1,4 @@
+
 object escuela {
 	var profesores = []
 	var estudiantes = []
@@ -5,7 +6,7 @@ object escuela {
 	method esProfesor(alguien) 
 		= profesores.contains(alguien)
 
-	method agregarProfesor(alguien) {
+	method agregarProfesor(alguien)  {
 		profesores.add(alguien)
 	} 
 
@@ -19,21 +20,16 @@ object escuela {
 }
 
 class Estudiante{
-	var salioDeGira = false
-	var dinero
+	var property salioDeGira = false
+	var property dinero
 	var platos
-	var categoria = principiante
-	constructor(_dinero, _platos){
-		dinero = _dinero
-		platos = _platos
-	}
+	var property categoria = principiante
+
 	method puedeSalir(costo) 
 		= dinero >= costo and self.buenaOnda()
 	
 	method buenaOnda()
 
-	method dinero() = dinero
-	method salioDeGira() = salioDeGira
 	method salirDeGira() {salioDeGira = true}
 	method comer(){
 		platos+=1
@@ -41,9 +37,6 @@ class Estudiante{
 	method pagar(importe){
 		dinero -= importe
 	}
-	method categoria() = categoria
-	method categoria(_categoria){ categoria = _categoria}
-	
 	method recategorizar(){
 		if(categoria.puedeAscender(self))
 			categoria.ascenderA(self)
@@ -52,10 +45,7 @@ class Estudiante{
 
 class Deglutidor inherits Estudiante{
 	var auto 
-	constructor(dinero, platos,_auto)
-		= super(dinero, platos){
-			auto = _auto
-	}
+
 	override method buenaOnda() = auto and platos>20
 	
 	method premioClasico(){
@@ -65,28 +55,20 @@ class Deglutidor inherits Estudiante{
 }
 
 class Critico inherits Estudiante{
-	var horasTele
-	constructor(dinero, platos, _horasTele)
-		= super(dinero,platos){
-			horasTele = _horasTele
-	}
+	var property horasTele
+	
 	override method buenaOnda() = horasTele >= 10*platos 
 
 	method premioClasico(){
 		horasTele *= 1.1
 	}
-	method horasTele() = horasTele
-	
+
 }
 
 class Gira{
 	var casasDeComidas = []
-	var personas = []
+	var property personas = []
 	var costoEstimado 
-	
-	constructor(costo){costoEstimado = costo}
-	
-	method personas() = personas
 	
 	method agregarLugar(lugar){
 		casasDeComidas.add(lugar)
@@ -117,8 +99,7 @@ class Gira{
 
 class CasaDeComidas{
 	var carta 
-	constructor(platos){carta = platos}
-
+	
 	method costoPorPersona(cantidad)
 		= carta.take(cantidad).sum{p=>p.costo()} / cantidad
 }
@@ -126,20 +107,14 @@ class CasaDeComidas{
 class Restaurante inherits CasaDeComidas{
 	var tenedores
 	var chef
-	constructor(platos, _tenedores, _chef) = super(platos){
-		tenedores = _tenedores
-		chef = _chef
-	}
+	
 	method valeLaPena(_)
 		= tenedores >=3 and chef.famosoOProfesor()
 }
 
 class RestauranteEtnico inherits Restaurante{
 	var lugar
-	constructor(platos, tenedores, chef, _lugar)
-		= super(platos, tenedores, chef){
-			lugar = _lugar
-	}
+	
 	override method valeLaPena(_)
 		= super(_) or lugar.exotico()
 }
@@ -159,21 +134,14 @@ class Chef{
 }
 
 class Lugar{
-	var exotico 
-	constructor(_exotico){
-		exotico = _exotico
-	}
-	method exotico() = exotico
+	var property exotico 
+	
 }
 
 class Plato{
-	var nombre
-	var costo
-	constructor(_nombre,_costo){
-		nombre = _nombre
-		costo = _costo
-	}
-	method costo() = costo
+	var property nombre
+	var property costo
+	
 }
 
 object principiante{
