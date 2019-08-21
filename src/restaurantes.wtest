@@ -1,28 +1,28 @@
 import restaurantes.*
 
 describe "Tests de comidas"{
-	var deglutidorBuenaOnda = new Deglutidor(1500,21,true)
-	var criticoBuenaOnda = new Critico(1500,2,40)
-	var deglutidorMalaOnda = new Deglutidor(2000,21,false)
-	var criticoPocaPlata = new Critico(150,2,20)
+	var deglutidorBuenaOnda = new Deglutidor( dinero = 1500, platos = 21, auto =true)
+	var criticoBuenaOnda = new Critico(dinero = 1500,platos = 2,horasTele = 40)
+	var deglutidorMalaOnda = new Deglutidor(dinero = 2000,platos  = 21,auto = false)
+	var criticoPocaPlata = new Critico(dinero = 150, platos = 2, horasTele = 20)
 	
 	
 	var chefProfesor = new Chef()
 	var chefFamoso = new Chef()
-	var uruguay = new Lugar(false)
+	var uruguay = new Lugar()
 	
-	var ravioli = new Plato("Ravioli",60)
-	var pasta = new Plato("Pasta",140)
-	var cazuela = new Plato("cazuela",40)
-	var carne = new Plato("Carne",5)
-	var ratatouille = new Plato("Ratatouille", 200)
+	var ravioli = new Plato(nombre="Ravioli",costo = 60)
+	var pasta = new Plato(nombre="Pasta",costo = 140)
+	var cazuela = new Plato(nombre="cazuela",costo = 40)
+	var carne = new Plato(nombre="Carne",costo = 5)
+	var ratatouille = new Plato(nombre="Ratatouille", costo = 200)
 	
-	var restComun = new Restaurante([ravioli,pasta,carne],4,chefProfesor)
-	var restEtnico = new RestauranteEtnico([ratatouille],1,chefFamoso,uruguay)
-	var bodegon = new Bodegon([cazuela,ravioli,pasta]) 
+	var restComun = new Restaurante(carta = [ravioli,pasta,carne],tenedores = 4,chef = chefProfesor)
+	var restEtnico = new RestauranteEtnico(carta = [ratatouille],tenedores = 1,chef = chefFamoso,lugar = uruguay)
+	var bodegon = new Bodegon(carta = [cazuela,ravioli,pasta]) 
 	
-	var giraCara = new Gira(1000)
-	var giraBarata = new Gira(100)
+	var giraCara = new Gira(costoEstimado = 1000)
+	var giraBarata = new Gira(costoEstimado = 100)
 	
 	fixture{
 		escuela.agregarEstudiante(deglutidorMalaOnda) 
@@ -53,14 +53,14 @@ describe "Tests de comidas"{
     	assert.that(giraCara.personas().contains(criticoBuenaOnda))
     }
      test "No puedo agregar a deglutidor mala onda a la gira cara"{
-    	assert.throwsExceptionLike(noPuedeIrDeGira, { giraCara.sumarA(deglutidorMalaOnda)})
+    	assert.throwsExceptionLike(new NoPuedeIrDeGira(), { giraCara.sumarA(deglutidorMalaOnda)})
     }
     test "Puedo agregar critico poca plata a la gira barata"{
     	giraBarata.sumarA(criticoPocaPlata)
     	assert.that(giraBarata.personas().contains(criticoPocaPlata))
     }
      test "No puedo agregar critico poca plata a la gira cara"{
-    	assert.throwsExceptionLike(noPuedeIrDeGira, { giraCara.sumarA(criticoPocaPlata)})
+    	assert.throwsExceptionLike(new NoPuedeIrDeGira(), { giraCara.sumarA(criticoPocaPlata)})
     }
 	test "Restaurante comun vale la pena para la giraBarata"{
     	self.sumarGiraBarata() 

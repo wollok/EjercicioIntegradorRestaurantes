@@ -79,7 +79,7 @@ class Gira{
 			
 	method sumarA(persona){
 		if (!persona.puedeSalir(costoEstimado))
-			throw noPuedeIrDeGira 
+			throw new NoPuedeIrDeGira() 
 		personas.add(persona)
 	}
 	method realizar(){
@@ -134,7 +134,7 @@ class Chef{
 }
 
 class Lugar{
-	var property exotico 
+	var property exotico = false
 	
 }
 
@@ -168,5 +168,5 @@ object experto{
 }
 
 
-object noPuedeIrDeGira inherits Exception{}
+class NoPuedeIrDeGira inherits Exception{}
 
