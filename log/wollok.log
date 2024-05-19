@@ -1,0 +1,2 @@
+{"level":"info","message":"⌛ Building environment","timeElapsed":138,"timestamp":"2024-05-19T11:48:14.448Z"}
+{"failures":[],"level":"info","message":"🧪 Test runner executed matching testRestaurantes.\"Tests de comidas\" on /home/dodain/workspace/wollok-dev/wollok-workspace/migracion-proyectos/EjercicioIntegradorRestaurantes","result":{"failed":0,"ok":16},"timeElapsed":427,"timestamp":"2024-05-19T11:52:02.339Z"}
