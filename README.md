@@ -1,6 +1,6 @@
 # Restaurantes
  
-[![Build Status](https://travis-ci.org/wollok/EjercicioIntegradorRestaurantes.svg?branch=master)](https://travis-ci.org/wollok/EjercicioIntegradorRestaurantes)
+[![Build Status](https://github.com/wollok/EjercicioIntegradorRestaurantes/actions/workflows/ci.yml/badge.svg)](https://github.com/wollok/EjercicioIntegradorRestaurantes/actions/workflows/ci.yml)
 
 
 ## Ejercicio integrador
